@@ -6,9 +6,7 @@ var se = ["zip", "xml", "xls", "txt", "svg", "rtf", "psd", "ppt", "pptx", "png",
 var bodyParser = require('body-parser')
 const { exec } = require('child_process');
 /* GET home page. */
-
-
-
+var flash = require('connect-flash');
 var elasticsearch = require('elasticsearch');
 var client = new elasticsearch.Client({
 	host: 'localhost:9200',
@@ -70,9 +68,7 @@ router.post('/tagfile', function (req, res, next) {
 	var path = req.query.path;
 	var name = req.query.name;
 	var tag = req.body.tagfield;
-	console.log(path);
-	console.log(name);
-	console.log(tag);
+
 	client.index({
 		index: tag,
 		type: '_doc',
@@ -83,7 +79,11 @@ router.post('/tagfile', function (req, res, next) {
 	}).then(function (resp) {
 		console.log(resp);
 	});
+	req.flash('success', "File tagged successfully");
 	res.redirect('back');
 });
 
+router.post('/search', function (req, res, next) {
+	var qry = req.body.query;
+});
 module.exports = router;

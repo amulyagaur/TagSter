@@ -115,12 +115,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-2 col-md-2 mr-0" href="#">TagSter</a>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+  <form method="POST" action="/search" >
+  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search tag" name="query">
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
       <a class="nav-link" href="#">Search</a>
     </li>
   </ul>
+</form>
 </nav>
 
 <div class="container-fluid">
@@ -205,10 +207,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
     <div class="album py-5 bg-light" style="padding-left: 265px" >
       <div class="container">
-  
+          
         <div class="row">
-
-            
+          <div>
+            <center><%- messages('message', locals) %></center>    <br><br><br><br></div>
             <% for(var i=0;i< dir.length;i++){ %>
               
               <div class="col-md-2">
