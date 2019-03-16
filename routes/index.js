@@ -49,4 +49,8 @@ router.get('/file',function(req, res, next){
   res.redirect('back');
 });
 
+router.get('/tagfile',function(req, res, next){
+  
+});
+
 module.exports = router;
