@@ -29,13 +29,13 @@ for(var i=0;i<list.length;i++)
 });
 
 
-// client.index({
-//     index: 'ddos',
-//     type: '_doc',
-//     body: {
-//         name: 'huhu.txt',
-//         path: '/home/amulya/DR.txt'
-//     }
-// }).then(function (resp) {
-//     console.log(resp);
-// });
+client.index({
+    index: 'ddos',
+    type: '_doc',
+    body: {
+        name: 'huhu.txt',
+        path: '/home/amulya/DR.txt'
+    }
+}).then(function (resp) {
+    console.log(resp);
+});
