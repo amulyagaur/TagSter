@@ -85,5 +85,31 @@ router.post('/tagfile', function (req, res, next) {
 
 router.post('/search', function (req, res, next) {
 	var qry = req.body.query;
+	var file = [];
+	var extn = [];
+	var filep=[];
+	var path="";
+	var dir=[];
+	client.search({
+		index:qry
+		}).then(function (resp) {
+		
+		var list = resp.hits.hits;
+		for(var i=0;i<list.length;i++)
+		{
+			console.log(list[i]._source.name,list[i]._source.path);
+			file.push(list[i]._source.name);
+			filep.push(list[i]._source.path);
+			var ext = pathf.extname(list[i]._source.name);
+			ext = ext.substring(1);
+			if (se.includes(ext))
+				extn.push(ext);
+			else
+				extn.push("*");
+		}
+		res.render('searchres', { file: file, extn: extn,filep:filep });
+		}, function (err) {
+			console.trace(err.message);
+		});
 });
 module.exports = router;
