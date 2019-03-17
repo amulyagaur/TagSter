@@ -115,14 +115,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-2 col-md-2 mr-0" href="#">TagSter</a>
-  <form method="POST" action="/search" >
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search tag" name="query">
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Search</a>
-    </li>
-  </ul>
-</form>
+  <form action="/search" class="nav-item" method="GET" id="qqwwe">
+    <input class="form-control form-control-dark w-100" type="text"  aria-label="Search tag" name="query" placeholder="Search" >
+  </form>
+    <button form="qqwwe" type="submit" class="btn nav-link"><font color="white">Search</font>></button>
+  
 </nav>
 
 <div class="container-fluid">
@@ -131,37 +128,37 @@ body {font-family: Arial, Helvetica, sans-serif;}
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="?path=/home/amulya">
+            <a class="nav-link active" href="/?path=/home/amulya">
               <span data-feather="home"></span>
               Home <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?path=/home/amulya/Documents">
+            <a class="nav-link" href="/?path=/home/amulya/Documents">
               <span data-feather="file"></span>
               Documents
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?path=/home/amulya/Downloads">
+            <a class="nav-link" href="/?path=/home/amulya/Downloads">
               <span data-feather="download"></span>
               Downloads
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?path=/home/amulya/Music">
+            <a class="nav-link" href="/?path=/home/amulya/Music">
               <span data-feather="music"></span>
               Music
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?path=/home/amulya/Pictures">
+            <a class="nav-link" href="/?path=/home/amulya/Pictures">
               <span data-feather="image"></span>
               Pictures
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?path=/home/amulya/Videos">
+            <a class="nav-link" href="/?path=/home/amulya/Videos">
               <span data-feather="video"></span>
               Videos
             </a>
@@ -211,24 +208,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
         <div class="row">
           <div>
             <center><%- messages('message', locals) %></center>    <br><br><br><br></div>
-            <% for(var i=0;i< dir.length;i++){ %>
-              
-              <div class="col-md-2">
-                  <div class="card mb-2 shadow-sm">
-                      <a href="?path=<%= path %>/<%= dir[i]%>"><svg class="bd-placeholder-img card-img-top" width="100%" height="125" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><rect width="100%" height="100%" fill="#55595c"/><image xlink:href="/images/dir.png" height="120" width="145"/></svg></a>
-                    <div class="card-body">
-                        <a href="?path=<%= path %>/<%= dir[i]%>"><%= dir[i]%></a>
-                    </div>
-                  </div>
-                </div>
-              <%  } %>
+           
 
               <% for(var i=0;i< file.length;i++){ %>
           <div class="col-md-2">
             <div class="card mb-2 shadow-sm">
-                <a href="/file?path=<%= path %>/<%= file[i]%>"><svg class="bd-placeholder-img card-img-top" width="100%" height="125" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><rect width="100%" height="100%" fill="#55595c"/><image xlink:href="/images/<%= extn[i]%>.png" height="120" width="145"/></svg></a>
+                <a href="/file?path=<%= filep[i] %>"><svg class="bd-placeholder-img card-img-top" width="100%" height="125" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><rect width="100%" height="100%" fill="#55595c"/><image xlink:href="/images/<%= extn[i]%>.png" height="120" width="145"/></svg></a>
               <div class="card-body">
-                  <a href="/file?path=<%= path %>/<%= file[i]%>"><%= file[i] %></a>
+                  <a href="/file?path=<%= filep[i] %>"><%= file[i] %></a>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
@@ -238,7 +225,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
               </div>
               <div class="form-popup" id="myForm<%= file[i]%>">
 
-                  <form method="POST" action="/tagfile?path=<%= path %>/<%= file[i]%>&name=<%= file[i]%>" class="form-container">
+                  <form method="POST" action="/tagfile?path=<%= filep[i] %>/<%= file[i]%>&name=<%= file[i]%>" class="form-container">
                     <h1>Tag File</h1>
                 
                     <label for="email"><b>Enter Tags</b></label>

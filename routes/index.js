@@ -59,7 +59,6 @@ router.get('/file', function (req, res, next) {
 		if (error) {
 			return;
 		}
-
 	});
 	res.redirect('back');
 });
@@ -83,18 +82,25 @@ router.post('/tagfile', function (req, res, next) {
 	res.redirect('back');
 });
 
-router.post('/search', function (req, res, next) {
-	var qry = req.body.query;
+router.get('/search', function (req, res, next) {
+	var qry = req.query.query;
+	
 	var file = [];
 	var extn = [];
 	var filep=[];
-	var path="";
-	var dir=[];
+
 	client.search({
-		index:qry
-		}).then(function (resp) {
-		
-		var list = resp.hits.hits;
+		index: qry,
+		type:'_doc'
+	  }, (err, result) => {
+		if (err){
+			console.log(err);
+			req.flash('alert','No file found');
+			res.redirect('back');
+		} 
+		else
+		{
+			var list = result.hits.hits;
 		for(var i=0;i<list.length;i++)
 		{
 			console.log(list[i]._source.name,list[i]._source.path);
@@ -108,8 +114,8 @@ router.post('/search', function (req, res, next) {
 				extn.push("*");
 		}
 		res.render('searchres', { file: file, extn: extn,filep:filep });
-		}, function (err) {
-			console.trace(err.message);
-		});
+			
+		}
+	  });
 });
 module.exports = router;
