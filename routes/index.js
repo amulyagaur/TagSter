@@ -55,7 +55,7 @@ router.get('/', function (req, res, next) {
 router.get('/file', function (req, res, next) {
 
 	var path = req.query.path;
-	exec(`xdg-open ${path}`, (error, stdout, stderr) => {
+	exec(`xdg-open "${path}"`, (error, stdout, stderr) => {
 		if (error) {
 			return;
 		}
