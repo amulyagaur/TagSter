@@ -96,7 +96,7 @@ router.get('/search', function (req, res, next) {
 		if (err){
 			console.log(err);
 			req.flash('alert','No file found');
-			res.redirect('back');
+			res.redirect('/');
 		} 
 		else
 		{
@@ -113,6 +113,7 @@ router.get('/search', function (req, res, next) {
 			else
 				extn.push("*");
 		}
+		req.flash('success',file.length+' file(s) found');
 		res.render('searchres', { file: file, extn: extn,filep:filep });
 			
 		}

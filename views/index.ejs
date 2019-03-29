@@ -114,9 +114,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
   </head>
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-sm-2 col-md-2 mr-0" href="#">TagSter</a>
+  <a class="navbar-brand col-sm-2 col-md-2 mr-0" href="#"><font size=4.2px>TagSter</font></a>
   <form action="/search" class="nav-item" method="GET" id="qqwwe">
-  <input class="form-control form-control-dark w-100" type="text"  aria-label="Search tag" name="query" placeholder="Search" >
+  <input class="form-control form-control-dark w-100" type="text"  aria-label="Search tag" name="query" placeholder="Search" style="background-color:#ddd" >
 </form>
   <button form="qqwwe" type="submit" class="btn nav-link"><font color="white">Search</font>></button>
 
@@ -124,44 +124,51 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 <div class="container-fluid">
   <div class="row">
-    <nav class="col-md-0 d-none d-md-block bg-light sidebar">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="?path=/home/amulya">
+            <a class="nav-link active" href="/?path=/home/amulya">
               <span data-feather="home"></span>
-              Home <span class="sr-only">(current)</span>
+              <b><font size=4px>Home</b> <span class="sr-only">(current)</span>
             </a>
+            <hr>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?path=/home/amulya/Documents">
+            <a class="nav-link" href="/?path=/home/amulya/Documents">
               <span data-feather="file"></span>
-              Documents
+              <b>Documents</b>
             </a>
+            <hr>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?path=/home/amulya/Downloads">
+            <a class="nav-link" href="/?path=/home/amulya/Downloads">
               <span data-feather="download"></span>
-              Downloads
+              <b>Downloads</b>
             </a>
+            <hr>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?path=/home/amulya/Music">
+            <a class="nav-link" href="/?path=/home/amulya/Music">
               <span data-feather="music"></span>
-              Music
+              <b>Music</b>
             </a>
+            <hr>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?path=/home/amulya/Pictures">
+            <a class="nav-link" href="/?path=/home/amulya/Pictures">
               <span data-feather="image"></span>
-              Pictures
+              <b>Pictures</b>
             </a>
+
+            <hr>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="?path=/home/amulya/Videos">
+          <li class="nav-item" >
+            <a class="nav-link" href="/?path=/home/amulya/Videos">
               <span data-feather="video"></span>
-              Videos
+              <b>Videos</font></b>
             </a>
+            <hr>
           </li>
         </ul>
 
@@ -204,10 +211,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
     <div class="album py-5 bg-light" style="padding-left: 265px" >
       <div class="container">
-          
+        <div>
+          <center><%- messages('message', locals) %></center>    <br><br></div>
         <div class="row">
-          <div>
-            <center><%- messages('message', locals) %></center>    <br><br><br><br></div>
+          
             <% for(var i=0;i< dir.length;i++){ %>
               
               <div class="col-md-2">
