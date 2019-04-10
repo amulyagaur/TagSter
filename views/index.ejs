@@ -114,6 +114,14 @@
     function closeForm(ii) {
       document.getElementById(`myForm${ii}`).style.display = "none";
     }
+
+    function openSearch() {
+      document.getElementById(`mysearchForm`).style.display = "block";
+    }
+
+    function closeSearch() {
+      document.getElementById(`mysearchForm`).style.display = "none";
+    }
   </script>
   <!-- Custom styles for this template -->
   <link href="https://getbootstrap.com/docs/4.3/examples/dashboard/dashboard.css" rel="stylesheet">
@@ -126,9 +134,15 @@
     </a>
     <form action="/search" class="nav-item" method="GET" id="qqwwe">
       <input class="form-control form-control-dark w-100" type="text" aria-label="Search tag" name="query"
-        placeholder="Search" style="background-color:#ddd">
+        placeholder="Search by tag" style="background-color:#ddd">
+        <!-- <input class="form-control form-control-dark w-100" type="text" aria-label="Search tag" name="query"
+        placeholder="Search by file name" style="background-color:#ddd">&nbsp;
+        <input class="form-control form-control-dark w-100" type="text" aria-label="Search tag" name="query"
+        placeholder="Search by date" style="background-color:#ddd">&nbsp;
+        <input class="form-control form-control-dark w-100" type="text" aria-label="Search tag" name="query"
+        placeholder="Search by file type" style="background-color:#ddd">&nbsp; -->
     </form>
-    <button form="qqwwe" type="submit" class="btn nav-link">
+    <button form="qqwwe" type="submit" class="btn nav-link" onclick="openSearch()">
       <font color="white">Search</font>>
     </button>
 
@@ -151,28 +165,28 @@
             <li class="nav-item">
               <a class="nav-link" href="/?path=/home/amulya/Documents">
                 <span data-feather="file"></span>
-                <b>Documents</b>
+              Documents
               </a>
               <hr>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/?path=/home/amulya/Downloads">
                 <span data-feather="download"></span>
-                <b>Downloads</b>
+              Downloads
               </a>
               <hr>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/?path=/home/amulya/Music">
                 <span data-feather="music"></span>
-                <b>Music</b>
+                Music
               </a>
               <hr>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/?path=/home/amulya/Pictures">
                 <span data-feather="image"></span>
-                <b>Pictures</b>
+                Pictures
               </a>
 
               <hr>
@@ -180,7 +194,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/?path=/home/amulya/Videos">
                 <span data-feather="video"></span>
-                <b>Videos</font></b>
+                Videos</font>
               </a>
               <hr>
             </li>
@@ -227,6 +241,20 @@
         <div class="container">
           <div>
             <center><%- messages('message', locals) %></center> <br><br>
+          </div>
+          <div class="form-popup" id="mysearchForm">
+
+            <form method="POST" action="/search"
+              class="form-container">
+              <h1>Search File</h1>
+
+              <label for="email"><b>Enter Tags</b></label>
+              <input type="text" placeholder="Enter Tags" name="tagfield" required>
+
+              <button type="submit" class="btn">Search</button>
+              <button type="button" class="btn cancel" onclick="closeSearch()">Close</button>
+            </form>
+
           </div>
           <div class="row">
 

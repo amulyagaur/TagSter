@@ -119,4 +119,8 @@ router.get('/search', function (req, res, next) {
 		}
 	  });
 });
+
+router.get('/try1',function(req,res){
+	res.render('try1');
+});
 module.exports = router;
