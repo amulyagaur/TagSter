@@ -83,7 +83,7 @@ router.post('/tagfile', function (req, res, next) {
 });
 
 router.get('/search', function (req, res, next) {
-	var qry = req.query.query;
+	var qry = req.query.search_tag;
 	
 	var file = [];
 	var extn = [];

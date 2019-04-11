@@ -15,6 +15,7 @@
     "express": "~4.16.0",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
+    "find": "^0.3.0",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0"
   }
