@@ -48,7 +48,6 @@ router.get('/', function (req, res, next) {
 			file.push(fl[i]);
 		}
 	}
-
 	res.render('index', { dir: dir, file: file, path: path, extn: extn });
 });
 
@@ -83,15 +82,24 @@ router.post('/tagfile', function (req, res, next) {
 });
 
 router.get('/search', function (req, res, next) {
-	var qry = req.query.search_tag;
-	
+	var qry_tag = req.query.search_tag;
+	var qry_name = req.query.search_name;
+	var qry_extn = req.query.search_extn;
+	var qry_date = req.query.search_date;
+	console.log(qry_tag);
+	console.log(qry_name);
+	console.log(qry_extn);
+	console.log(qry_date);
 	var file = [];
 	var extn = [];
 	var filep=[];
 
+	if(qry_tag.length >0)
+	{
 	client.search({
-		index: qry,
-		type:'_doc'
+		index: qry_tag,
+		type:'_doc',
+		size:500
 	  }, (err, result) => {
 		if (err){
 			console.log(err);
@@ -118,9 +126,29 @@ router.get('/search', function (req, res, next) {
 			
 		}
 	  });
+	}
+	else
+	if(qry_name.length >0)
+	{
+
+	}
+	else
+	if(qry_extn.length >0)
+	{
+
+	}
+	else
+	if(qry_date.length >0)
+	{
+
+	}
+	else
+	{
+		req.flash('alert','Please enter correct search query');
+		res.redirect('/');
+	}
+
 });
 
-router.get('/try1',function(req,res){
-	res.render('try1');
-});
+
 module.exports = router;
