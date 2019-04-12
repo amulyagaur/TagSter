@@ -1,5 +1,5 @@
 var find = require('find');
-var files = find.fileSync('/home/amulya/Music');
+var files = find.fileSync('/home/amulya/Pictures');
 const path = require('path');
 var elasticsearch = require('elasticsearch');
 var client = new elasticsearch.Client({

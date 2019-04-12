@@ -128,14 +128,45 @@ router.get('/search', function (req, res, next) {
 	  });
 	}
 	else
-	if(qry_name.length >0)
-	{
-
-	}
-	else
 	if(qry_extn.length >0)
 	{
-
+		client.search({
+			index: qry_extn,
+			type:'_doc',
+			size:500,
+			body:{
+				query:{
+					match:{
+						name:qry_name
+					}
+				}
+			}
+		  }, (err, result) => {
+			if (err){
+				console.log(err);
+				req.flash('alert','No file found');
+				res.redirect('/');
+			} 
+			else
+			{
+				var list = result.hits.hits;
+			for(var i=0;i<list.length;i++)
+			{
+				console.log(list[i]._source.name,list[i]._source.path);
+				file.push(list[i]._source.name);
+				filep.push(list[i]._source.path);
+				var ext = pathf.extname(list[i]._source.name);
+				ext = ext.substring(1);
+				if (se.includes(ext))
+					extn.push(ext);
+				else
+					extn.push("*");
+			}
+			req.flash('success',file.length+' file(s) found');
+			res.render('searchres', { file: file, extn: extn,filep:filep });
+				
+			}
+		  });
 	}
 	else
 	if(qry_date.length >0)
