@@ -66,13 +66,16 @@ router.post('/tagfile', function (req, res, next) {
 	var path = req.query.path;
 	var name = req.query.name;
 	var tag = req.body.tagfield;
-
+	var stats = fs.statSync(path);
+		var date = stats.mtime.toISOString().substr(0,10);
+		date=date.replace(/-/g,"");
 	client.index({
 		index: tag,
 		type: '_doc',
 		body: {
 			name: name,
-			path: path
+			path: path,
+			date: date
 		}
 	}).then(function (resp) {
 		console.log(resp);
@@ -82,24 +85,35 @@ router.post('/tagfile', function (req, res, next) {
 });
 
 router.get('/search', function (req, res, next) {
+
 	var qry_tag = req.query.search_tag;
 	var qry_name = req.query.search_name;
 	var qry_extn = req.query.search_extn;
 	var qry_date = req.query.search_date;
+
 	console.log(qry_tag);
 	console.log(qry_name);
 	console.log(qry_extn);
 	console.log(qry_date);
+
 	var file = [];
 	var extn = [];
 	var filep=[];
 
 	if(qry_tag.length >0)
 	{
+
 	client.search({
 		index: qry_tag,
 		type:'_doc',
-		size:500
+		size:500,
+		body:{
+			query:{
+					regexp:{
+							date: ".*"    
+									}
+			}
+	}
 	  }, (err, result) => {
 		if (err){
 			console.log(err);
@@ -127,6 +141,57 @@ router.get('/search', function (req, res, next) {
 		}
 	  });
 	}
+	
+	else
+	if(qry_date.length >0)
+	{
+		var idx;
+		if(qry_extn.length>0)
+		{
+			idx=qry_extn;
+		}
+		else
+		{
+			idx="*";
+		}
+		client.search({
+			index: idx,
+			type:'_doc',
+			size:500,
+			body:{
+				query:{
+						regexp:{
+								date: qry_date    
+										}
+				}
+		}
+			}, (err, result) => {
+			if (err){
+				console.log(err);
+				req.flash('alert','No file found');
+				res.redirect('/');
+			} 
+			else
+			{
+				var list = result.hits.hits;
+			for(var i=0;i<list.length;i++)
+			{
+				console.log(list[i]._source.name,list[i]._source.path);
+				file.push(list[i]._source.name);
+				filep.push(list[i]._source.path);
+				var ext = pathf.extname(list[i]._source.name);
+				ext = ext.substring(1);
+				if (se.includes(ext))
+					extn.push(ext);
+				else
+					extn.push("*");
+			}
+			req.flash('success',file.length+' file(s) found');
+			res.render('searchres', { file: file, extn: extn,filep:filep });
+				
+			}
+			});
+	}
 	else
 	if(qry_extn.length >0)
 	{
@@ -134,13 +199,13 @@ router.get('/search', function (req, res, next) {
 			index: qry_extn,
 			type:'_doc',
 			size:500,
-			body:{
-				query:{
-					match:{
-						name:qry_name
-					}
-				}
-			}
+			// body:{
+			// 	query:{
+			// 		match:{
+			// 			name:qry_name
+			// 		}
+			// 	}
+			// }
 		  }, (err, result) => {
 			if (err){
 				console.log(err);
@@ -167,11 +232,6 @@ router.get('/search', function (req, res, next) {
 				
 			}
 		  });
-	}
-	else
-	if(qry_date.length >0)
-	{
-
 	}
 	else
 	{

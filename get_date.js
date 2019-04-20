@@ -1,5 +1,6 @@
 var find = require('find');
-var files = find.fileSync('/home/amulya/Pictures');
+var fs = require('fs');
+var files = find.fileSync('/home/amulya/Documents');
 const path = require('path');
 var elasticsearch = require('elasticsearch');
 var client = new elasticsearch.Client({
@@ -10,7 +11,10 @@ for(var i=0;i<files.length;i++)
 {
     var ext = path.extname(files[i]);
     ext = ext.substring(1);
-    
+    var stats = fs.statSync(files[i]);
+    var date = stats.mtime.toISOString().substr(0,10);
+    date=date.replace(/-/g,"");
+    console.log(date);
     if(ext.length>0)
     {
         client.index({
@@ -18,7 +22,8 @@ for(var i=0;i<files.length;i++)
             type: '_doc',
             body: {
                 name: path.posix.basename(files[i]),
-                path: files[i]
+                path: files[i],
+                date: date
             }
         }).then(function (resp) {
             console.log(resp);

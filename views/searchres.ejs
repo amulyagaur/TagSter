@@ -108,6 +108,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
     function closeForm(ii) {
       document.getElementById(`myForm${ii}`).style.display = "none";
     }
+
+    function openSearch() {
+      document.getElementById(`mysearchForm`).style.display = "block";
+    }
+
+    function closeSearch() {
+      document.getElementById(`mysearchForm`).style.display = "none";
+    }
     </script>
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.3/examples/dashboard/dashboard.css" rel="stylesheet">
@@ -115,11 +123,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-sm-2 col-md-2 mr-0" href="#">TagSter</a>
-  <form action="/search" class="nav-item" method="GET" id="qqwwe">
-    <input class="form-control form-control-dark w-100" type="text"  aria-label="Search tag" name="query" placeholder="Search" style="background-color:#ddd" >
-  </form>
-    <button form="qqwwe" type="submit" class="btn nav-link"><font color="white">Search</font>></button>
-  
+ 
+  <button   class="btn nav-link" onclick="openSearch()">
+    <font color="white">Search Files</font> >
+  </button>
 </nav>
 
 <div class="container-fluid">
@@ -214,6 +221,26 @@ body {font-family: Arial, Helvetica, sans-serif;}
           <div>
               <center><%- messages('message', locals) %></center> </div>
              <br>
+
+             <div class="form-popup" id="mysearchForm">
+
+              <form method="GET" action="/search"
+                class="form-container">
+                <h1>Search File</h1>
+                <label ><b>File Tags</b></label>
+                <input type="text" placeholder="Search by file tag" name="search_tag" >
+                <label ><b>File Name</b></label>
+                <input type="text" placeholder="Search by file name" name="search_name" >
+                <label ><b>File Extension</b></label>
+                <input type="text" placeholder="Search by file extension" name="search_extn" >
+                <label ><b>File Date(Last Modified)</b></label>
+                <input type="text" placeholder="Search by file date" name="search_date" >
+  
+                <button type="submit" class="btn">Search</button>
+                <button type="button" class="btn cancel" onclick="closeSearch()">Close</button>
+              </form>
+  
+            </div>
         <div class="row">
          
 

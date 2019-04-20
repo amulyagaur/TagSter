@@ -5,14 +5,14 @@ var client = new elasticsearch.Client({
 	log: 'trace'
 });
 client.search({
-    index: 'pdf',
+    index: '*',
     type:'_doc',
     size:500,
     body:{
         query:{
-            match:{
-                name:'Softablitz'
-            }
+            regexp:{
+                name:".*TICKET"
+                    }
         }
     }
   }, (err, result) => {
